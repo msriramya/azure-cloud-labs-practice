@@ -1,0 +1,29 @@
+
+#cloud-config
+
+package_update: true
+
+packages:
+  - nginx
+
+write_files:
+  - path: /var/www/html/index.html
+    owner: root:root
+    permissions: "0644"
+    content: |
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>Azure HA NGINX Project</title>
+      </head>
+      <body>
+        <h1>Welcome to ${server_name}</h1>
+        <h2>Highly Available NGINX Web Servers</h2>
+        <p>Server identifier: ${server_number}</p>
+        <p>Hosted on Azure Ubuntu Linux</p>
+      </body>
+      </html>
+
+runcmd:
+  - systemctl enable nginx
+  - systemctl restart nginx
